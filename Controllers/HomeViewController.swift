@@ -9,7 +9,7 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
-    let sectionTitles: [String] = ["Trending movies", "popular", "Trending TV", "Upcoming Movies", "Top rated"]
+    let sectionTitles: [String] = ["Trending movies",  "Trending TV", "popular", "Upcoming Movies", "Top rated"]
     
     private let homeFeedTable: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
@@ -24,17 +24,17 @@ class HomeViewController: UIViewController {
         homeFeedTable.delegate = self
         homeFeedTable.dataSource = self
         configureNavbar()
-        getTrandingMovie()
+        fetchData()
         
         let headerView = HeroHeaderUiView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 500))
         homeFeedTable.tableHeaderView = headerView
     }
     
     private func configureNavbar() {
-        
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Netflix", style: .done, target: self, action: nil)
             
-        
+
+        navigationItem.leftBarButtonItem?.tintColor = .systemRed
         
         navigationItem.rightBarButtonItems = [
             UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self, action: nil),
@@ -46,16 +46,30 @@ class HomeViewController: UIViewController {
         super.viewDidLayoutSubviews()
         homeFeedTable.frame = view.bounds
     }
-    private func getTrandingMovie() {
-        APICaller.shared.getTrendMovies { _ in
-            APICaller.shared.getTrendMovies { result in
-                switch result {
-                case .success(let movies):
-                    print(movies)
-                case .failure(let error):
-                    print(error)
-                }
-            }
+    private func fetchData() {
+//        APICaller.shared.getTrendMovies { _ in
+//            APICaller.shared.getTrendMovies { result in
+//                switch result {
+//                case .success(let movies):
+//                    print(movies)
+//                case .failure(let error):
+//                    print(error)
+//                }
+//            }
+//        }
+        
+//        APICaller.shared.getTrendingTvs { results in
+//
+//        }
+        
+//        APICaller.shared.getupcpmongMovie { _ in
+//
+//        }
+//        APICaller.shared.getPopularMovie { _ in
+//
+//        }
+        APICaller.shared.getTopratedMovie { _ in
+            
         }
     }
 
@@ -90,7 +104,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         header.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
         header.textLabel?.frame = CGRect(x: header.bounds.origin.x, y: header.bounds.origin.y, width: 100, height: header.bounds.height)
         header.textLabel?.textColor = .white
-        header.textLabel?.text = header.textLabel?.text?.lowercased()
+        header.textLabel?.text = header.textLabel?.text?.capitalizeFirstLetter()
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
