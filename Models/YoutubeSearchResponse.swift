@@ -11,10 +11,10 @@ struct YoutubeSearchResponse: Codable {
     let items: [VideoElement]
 }
 struct VideoElement: Codable {
-    let id: [IDVideoElement]
+    let id: IdVideoElement
 }
 
-struct IDVideoElement: Codable {
+struct IdVideoElement: Codable {
     let kind: String
     let videoId: String
 }

@@ -36,7 +36,6 @@ class HomeViewController: UIViewController {
         let headerView = HeroHeaderUiView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 500))
         homeFeedTable.tableHeaderView = headerView
         
-        navigationController?.pushViewController(TitlePreviewViewController(), animated: true)
     }
     
     private func configureNavbar() {
@@ -72,6 +71,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CollectionViewTableViewCell.identifier, for: indexPath) as? CollectionViewTableViewCell else {
             return UITableViewCell()
         }
+        
+        cell.delegate = self
+        
         switch indexPath.section {
             
         case Sections.TrendingMovies.rawValue:
@@ -145,10 +147,22 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         return sectionTitles[section]
     }
     
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let defaultOffset = view.safeAreaInsets.top
         let offset = scrollView.contentOffset.y + defaultOffset
         
         navigationController?.navigationBar.transform = .init(translationX: 0, y: min(0, -offset))
+    }
+}
+
+extension HomeViewController: CollectionTableViewDelegete {
+    func CollectionViewTableViewCellDidtapCell(_ cell: CollectionViewTableViewCell, viewmodel: TItlePreviewViewModel) {
+        DispatchQueue.main.async { [weak self] in
+            let vc = TitlePreviewViewController()
+            vc.configure(with: viewmodel)
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
+       
     }
 }
