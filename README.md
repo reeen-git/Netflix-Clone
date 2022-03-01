@@ -1,5 +1,6 @@
 # Netflix-Clone
-Youtubeの動画(https://www.youtube.com/watch?v=KCgYDCKqato)を参考にしながらNETFLIEXのクローンアプリを作りました。
+Youtubeの動画を参考にしながらNETFLIEX風アプリを作りました。
+(https://www.youtube.com/watch?v=KCgYDCKqato)
   
 映画・テレビは流れませんが、その予告動画が流れます。
   
