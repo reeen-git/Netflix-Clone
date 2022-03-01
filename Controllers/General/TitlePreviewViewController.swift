@@ -13,17 +13,15 @@ class TitlePreviewViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 22, weight: .bold)
-        label.text = "harry"
         return label
     }()
     
     private let overviewLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 18, weight: .regular)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 0
-        label.text = "great movie"
-        return label
+        let label2 = UILabel()
+        label2.font = .systemFont(ofSize: 18, weight: .regular)
+        label2.translatesAutoresizingMaskIntoConstraints = false
+        label2.numberOfLines = 0
+        return label2
     }()
     private let downloadButton: UIButton = {
        let button = UIButton()
@@ -66,6 +64,7 @@ class TitlePreviewViewController: UIViewController {
         let overViewConstrains = [
             overviewLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15),
             overviewLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor ,constant: 20),
+            overviewLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ]
         let downloadButtonConstrains = [
             downloadButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -81,7 +80,7 @@ class TitlePreviewViewController: UIViewController {
     
     func configure(with model: TItlePreviewViewModel) {
         titleLabel.text = model.title
-        overviewLabel.text = model.title
+        overviewLabel.text = model.titleOverView
         
         guard let url = URL(string: "https://www.youtube.com/embed/\(model.youtubeVideo.id.videoId)") else {
             return
